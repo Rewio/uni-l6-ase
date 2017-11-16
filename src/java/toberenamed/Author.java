@@ -1,38 +1,34 @@
 package toberenamed;
 
-public class Beenz {
-
-    //----------------------------------------------------------------------
-    // Constants:
-    //----------------------------------------------------------------------
-    
-    private final int STARTING_AMOUNT = 0;
+public class Author {
 
     //----------------------------------------------------------------------
     // Private Fields:
     //----------------------------------------------------------------------
     
     private final int id;
-    private final Employee owner;
-    private int amount;
+    private final Employee author;
 
     //----------------------------------------------------------------------
     // Constructor:
     //----------------------------------------------------------------------
     
-    public Beenz(Employee aOwner) {
+    public Author(Employee theAuthor) {
         id = Unique.getUniqueId();
-        owner = aOwner;
-        amount = STARTING_AMOUNT;
+        author = theAuthor;
     }
 
     //----------------------------------------------------------------------
     // Public Methods:
     //----------------------------------------------------------------------
     
+    public String getAuthorName() {
+        return author.getEmployeeName();
+    }
+
     @Override
     public String toString() {
-        return id + " " + owner.getEmployeeName() + " " + amount;
+        return author.getEmployeeInitials();
     }
 
 }

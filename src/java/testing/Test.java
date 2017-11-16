@@ -8,7 +8,7 @@ public class Test {
      
     Employee emp1 = new Employee("Andrew", "Foster");
     Employee emp2 = new Employee("Bob", "Dillon");
-    System.out.println(emp2);
+    
     
   }
 
