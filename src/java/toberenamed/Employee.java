@@ -14,7 +14,23 @@ public class Employee implements IEmployee {
     private String forename;
     private String surname;
     private Beenz beenz;
+    
+    //----------------------------------------------------------------------
+    // Getters and Setters:
+    //----------------------------------------------------------------------
 
+    public String getName() {
+        return forename + " " + surname;
+    }
+
+    public String getInitials() {
+        return forename.substring(0, 1) + surname.substring(0, 1);
+    }
+    
+    public Beenz getBeenz() {
+        return beenz;
+    }
+    
     //----------------------------------------------------------------------
     // Constructors:
     //----------------------------------------------------------------------
@@ -34,14 +50,6 @@ public class Employee implements IEmployee {
     // Public Methods:
     //----------------------------------------------------------------------
     
-    public String getEmployeeName() {
-        return forename + " " + surname;
-    }
-
-    public String getEmployeeInitials() {
-        return forename.substring(0, 1) + surname.substring(0, 1);
-    }
-
     @Override
     public String toString() {
         return id + " " + forename + " " + surname + " " + beenz;

@@ -2,8 +2,8 @@ package toberenamed;
 
 import interfaces.IDocument;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 
 @Stateless
@@ -15,8 +15,8 @@ public class Document implements IDocument {
     
     private int id;
     private String title;
-    private Author author; // TODO: implement author.
-    private Map<Employee, String> contributors;
+    private Author author; 
+    private List<Employee> contributors;
     private LocalDate dateCreated;
     private String content;
 
@@ -56,7 +56,7 @@ public class Document implements IDocument {
         id = Unique.getUniqueId();
         title = aTitle;
         author = anAuthor;
-        contributors = new HashMap<>();
+        contributors = new ArrayList<>();
         dateCreated = LocalDate.now();
         content = aContent;
     }
@@ -84,8 +84,8 @@ public class Document implements IDocument {
         }
 
         // add the contribution to the documents content, and the contributor to the contributors container.
-        content += contribution + "(" + contributor.getEmployeeInitials() + ")";
-        contributors.put(contributor, contribution);
+        content += " " + contribution + "(" + contributor.getInitials() + ")";
+        contributors.add(contributor);
     }
 
     @Override
@@ -96,18 +96,18 @@ public class Document implements IDocument {
     @Override
     public String viewContributors() {
 
+        // if there are no contributors, return now and say so.
         if (contributors.isEmpty()) {
             return "No contributors.";
         }
-
+        
+        // build a string containing the name of all the contributors.
         StringBuilder sb = new StringBuilder();
-        for (Employee employee : contributors.keySet()) {
-            sb.append(employee.getEmployeeInitials());
-            sb.append(" - ");
-            sb.append(contributors.get(employee));
+        for (Employee contributor : contributors) {
+            sb.append(contributor.getName());
             sb.append("\n");
         }
-
+        
         return sb.toString();
     }
 

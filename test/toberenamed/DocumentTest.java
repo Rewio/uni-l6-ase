@@ -43,7 +43,7 @@ public class DocumentTest {
 
         // test.
         assertEquals(documentTitle, result.getTitle());
-        assertEquals(emp1.getEmployeeName(), result.getAuthor().getAuthorName());
+        assertEquals(emp1.getName(), result.getAuthor().getAuthorName());
         assertEquals(LocalDate.now().toString(), result.getDateCreated());
         assertEquals(documentContent, result.getContent());
         assertEquals(STARTING_CONTRIBUTORS, result.getNumContributors());

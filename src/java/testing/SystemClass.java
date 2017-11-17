@@ -16,11 +16,19 @@ public class SystemClass {
         
         Employee emp2 = new Employee("Bob", "Dillon");
         doc1.contributeToDocument(emp2, "Contribution.");
+        doc1.contributeToDocument(emp2, "Not a contribution at all!");
+
         System.out.println(doc1);
         
-        doc1.contributeToDocument(emp2, "Not a contribution at all!");
+        doc1.contributeToDocument(emp2, "This is a terrible contribution!");
         
         System.out.println(doc1.viewContributors());
-    }
+        System.out.println(doc1);
+        
+        Beenz b = emp1.getBeenz();
+        System.out.println(b);
+        b.addBeenz(50000);                  
+        System.out.println(b);
+   }
     
 }

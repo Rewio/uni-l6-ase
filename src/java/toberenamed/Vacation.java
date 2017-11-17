@@ -1,34 +1,29 @@
 package toberenamed;
 
-public class Author {
+public class Vacation extends Redeemable {
+    
+    //----------------------------------------------------------------------
+    // Type Definitions:
+    //----------------------------------------------------------------------
 
+    public enum Destinations {
+        London,
+        NewYork,
+        Paris, 
+        Amsterdam, 
+        Manitoba
+    }
+    
     //----------------------------------------------------------------------
     // Private Fields:
     //----------------------------------------------------------------------
-    
-    private final int id;
-    private final Employee author;
 
+    
     //----------------------------------------------------------------------
-    // Constructor:
+    // Constructors:
     //----------------------------------------------------------------------
     
-    public Author(Employee theAuthor) {
+    public Vacation() {
         id = Unique.getUniqueId();
-        author = theAuthor;
     }
-
-    //----------------------------------------------------------------------
-    // Public Methods:
-    //----------------------------------------------------------------------
-    
-    public String getAuthorName() {
-        return author.getName();
-    }
-
-    @Override
-    public String toString() {
-        return author.getInitials();
-    }
-
 }
