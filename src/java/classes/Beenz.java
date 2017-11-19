@@ -1,8 +1,8 @@
-package toberenamed;
+package classes;
 
 import java.time.LocalDate;
 
-public class Beenz {
+public class Beenz extends Unique {
 
     //----------------------------------------------------------------------
     // Constants:
@@ -14,18 +14,24 @@ public class Beenz {
     //----------------------------------------------------------------------
     // Private Fields:
     //----------------------------------------------------------------------
-    
-    private final int id;
+
     private final Employee owner;
     private int amount;
     private LocalDate expiryDate;
+    
+    //----------------------------------------------------------------------
+    // Getters and Setters:
+    //----------------------------------------------------------------------
+    
+    public int getNumBeenz() {
+        return amount;
+    }
     
     //----------------------------------------------------------------------
     // Constructor:
     //----------------------------------------------------------------------
     
     public Beenz(Employee anOwner) {
-        id = Unique.getUniqueId();
         owner = anOwner;
         amount = STARTING_AMOUNT;
         expiryDate = LocalDate.now().plusYears(EXPIRY_DATE_INCREMENT);
@@ -58,16 +64,20 @@ public class Beenz {
         return true;
     }
     
+    public void clearBeenz() {
+        amount = 0;
+    }
+    
     @Override
     public String toString() {
-        return owner.getName() + " has " + amount + " beenz, expiring: " + expiryDate;
+        return getId() + " " + owner.getName() + " has " + amount + " beenz, expiring: " + expiryDate;
     }
 
     //----------------------------------------------------------------------
     // Private Methods:
     //----------------------------------------------------------------------
     
-    public void incrementExpiryDate() {
+    private void incrementExpiryDate() {
         expiryDate = expiryDate.plusYears(EXPIRY_DATE_INCREMENT);
     }
 }

@@ -1,34 +1,33 @@
-package toberenamed;
+package classes;
 
-public class Author {
+public class Book extends Redeemable {
 
     //----------------------------------------------------------------------
     // Private Fields:
     //----------------------------------------------------------------------
     
-    private final int id;
-    private final Employee author;
-
+    private final String author;
+    private final String title;
+    private final int numPages;
+    
     //----------------------------------------------------------------------
-    // Constructor:
+    // Constructors:
     //----------------------------------------------------------------------
     
-    public Author(Employee theAuthor) {
-        id = Unique.getUniqueId();
-        author = theAuthor;
+    public Book(String anAuthor, String aTitle, int aNumPages, int aCost) {
+        author   = anAuthor;
+        title    = aTitle;
+        numPages = aNumPages;
+        cost     = aCost;
     }
-
+    
     //----------------------------------------------------------------------
     // Public Methods:
     //----------------------------------------------------------------------
     
-    public String getAuthorName() {
-        return author.getName();
-    }
-
     @Override
     public String toString() {
-        return author.getInitials();
+        return "Book: " + title + " by " + author + ". Has " + numPages + " pages, costing: " + cost + " beenz.";
     }
 
 }

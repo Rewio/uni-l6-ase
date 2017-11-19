@@ -1,16 +1,15 @@
-package toberenamed;
+package classes;
 
 import interfaces.IEmployee;
 import javax.ejb.Stateless;
 
 @Stateless
-public class Employee implements IEmployee {
+public class Employee extends Unique implements IEmployee {
 
     //----------------------------------------------------------------------
     // Private Fields:
     //----------------------------------------------------------------------
     
-    private int id;
     private String forename;
     private String surname;
     private Beenz beenz;
@@ -40,7 +39,6 @@ public class Employee implements IEmployee {
     }
 
     public Employee(String aForename, String aSurname) {
-        id = Unique.getUniqueId();
         forename = aForename;
         surname = aSurname;
         beenz = new Beenz(this);
@@ -50,9 +48,25 @@ public class Employee implements IEmployee {
     // Public Methods:
     //----------------------------------------------------------------------
     
+    public void rewardBeenz(int rewardedBeenz) {
+        beenz.addBeenz(rewardedBeenz);
+    }
+    
+    public int viewAvailableBeenz() {
+        return beenz.getNumBeenz();
+    }
+    
+    public void clearBeenz() {
+        beenz.clearBeenz();
+    }
+    
+    public PurchaseOrder redeemRedeemable(Redeemable redeemable) {
+        return null;
+    }
+    
     @Override
     public String toString() {
-        return id + " " + forename + " " + surname + " " + beenz;
+        return getId() + " " + forename + " " + surname + " " + beenz;
     }
 
 }

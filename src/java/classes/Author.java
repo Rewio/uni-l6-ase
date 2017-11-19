@@ -1,40 +1,36 @@
-package toberenamed;
+package classes;
 
-import interfaces.IRedeemable;
-import javax.ejb.Stateless;
-
-@Stateless
-public class Redeemable implements IRedeemable {
+public class Author extends Unique {
 
     //----------------------------------------------------------------------
     // Private Fields:
     //----------------------------------------------------------------------
     
-    protected int id;
-    protected float cost;
-    
-    //----------------------------------------------------------------------
-    // Getters and Setters:
-    //----------------------------------------------------------------------
-    
-    public float getCost() {
-        return cost;
-    }
-    
-    public void setCost(float newCost) {
-        cost = newCost;
-    }
-    
+    private final Employee author;
+
     //----------------------------------------------------------------------
     // Constructor:
     //----------------------------------------------------------------------
     
-    protected Redeemable() {
-        
+    public Author(Employee theAuthor) {
+        author = theAuthor;
+    }
+
+    //----------------------------------------------------------------------
+    // Public Methods:
+    //----------------------------------------------------------------------
+    
+    public String getName() {
+        return author.getName();
     }
     
-    public void Test() {
-        
+    public String getInitials() {
+        return author.getInitials();
     }
-    
+
+    @Override
+    public String toString() {
+        return getId() + " - " + getName() + " - " + getInitials();
+    }
+
 }

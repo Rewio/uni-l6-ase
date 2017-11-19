@@ -1,5 +1,7 @@
 package toberenamed;
 
+import classes.Document;
+import classes.Employee;
 import java.time.LocalDate;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -43,7 +45,7 @@ public class DocumentTest {
 
         // test.
         assertEquals(documentTitle, result.getTitle());
-        assertEquals(emp1.getName(), result.getAuthor().getAuthorName());
+        assertEquals(emp1.getName(), result.getAuthor().getName());
         assertEquals(LocalDate.now().toString(), result.getDateCreated());
         assertEquals(documentContent, result.getContent());
         assertEquals(STARTING_CONTRIBUTORS, result.getNumContributors());

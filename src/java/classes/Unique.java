@@ -1,19 +1,20 @@
-package toberenamed;
+package classes;
 
-public class Unique {
-
+public abstract class Unique {
+    
     //----------------------------------------------------------------------
     // Private Fields:
     //----------------------------------------------------------------------
-    
+
     private static int counter = 0;
-
+    private final int id = ++counter;
+    
     //----------------------------------------------------------------------
-    // Public Methods:
+    // Protected Methods:
     //----------------------------------------------------------------------
     
-    public static int getUniqueId() {
-        return ++counter;
+    protected int getId() {
+        return id;
     }
-
+    
 }
