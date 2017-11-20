@@ -61,7 +61,7 @@ public class Employee extends Unique implements IEmployee {
     }
     
     public PurchaseOrder redeemRedeemable(Redeemable redeemable) {
-        return null;
+        return redeemable.redeem(this);
     }
     
     @Override

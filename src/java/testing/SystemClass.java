@@ -56,26 +56,26 @@ public class SystemClass {
         Vacation vacation = new Vacation(Vacation.Destinations.PaidLeave, LocalDate.now(), LocalDate.now().plusDays(7), 1000);
                 
         // attempt to purchase the redeemables.
-        PurchaseOrder po1 = book.redeem(emp1);
-        PurchaseOrder po2 = cd.redeem(emp2);
-        PurchaseOrder po3 = vacation.redeem(emp3);
+        PurchaseOrder po1 = emp1.redeemRedeemable(book);
+        PurchaseOrder po2 = emp2.redeemRedeemable(cd);
+        PurchaseOrder po3 = emp3.redeemRedeemable(vacation);
         System.out.println();
         
         // give beenz to be used to purchase some redeemables.
         emp1.rewardBeenz(1500);
         
         // attempt to purchase the redeemables and print out their purchase orders, and an updated beenz count to show their deduction.
-        po1 = book.redeem(emp1);
+        po1 = emp1.redeemRedeemable(book);
         System.out.println(po1.viewPurchaseOrderDetails());
         System.out.println(emp1.getBeenz());
         System.out.println();
         
-        po2 = cd.redeem(emp1);
+        po2 = emp1.redeemRedeemable(cd);
         System.out.println(po2.viewPurchaseOrderDetails());
         System.out.println(emp1.getBeenz());
         System.out.println();
         
-        po3 = vacation.redeem(emp1);
+        po3 = emp1.redeemRedeemable(vacation);
         System.out.println(po3.viewPurchaseOrderDetails());
         System.out.println(emp1.getBeenz());
         

@@ -1,8 +1,9 @@
-package toberenamed;
+package classes;
 
 import classes.Document;
 import classes.Employee;
 import java.time.LocalDate;
+import java.util.Random;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -70,7 +71,7 @@ public class DocumentTest {
 
         // data to be tested.
         String expResult = documentContent;
-        String result = doc1.getContent();
+        String result    = doc1.getContent();
 
         // test.
         assertEquals(expResult, result);
@@ -85,6 +86,23 @@ public class DocumentTest {
 
         // test.
         assertEquals(expResult, actResult);
+    }
+    
+    @Test
+    public void testRewardBeenz() throws Exception {
+        
+        // data to be tested.
+        int startingBeenz = emp1.getBeenz().getNumBeenz();
+        
+        // Create a new document 100 times, statistically should be rewarded for this.
+        for (int i = 0; i < 100; i++) {
+           Document newDoc = Document.createDocument(emp1, "Document", "Content");
+        }
+        
+        int currentBeenz = emp1.getBeenz().getNumBeenz();
+        
+        // test.
+        assertNotEquals(startingBeenz, currentBeenz);
     }
 
 }

@@ -16,6 +16,22 @@ public class PurchaseOrder extends Unique implements IPurchaseOrder {
     private LocalDate dateRedeemed;
     
     //----------------------------------------------------------------------
+    // Getters and Setters:
+    //----------------------------------------------------------------------
+    
+    public Employee getEmployee() {
+        return purchasee;
+    }
+    
+    public Redeemable getPurchasedRedeemable() {
+        return purchasedRedeemable;
+    }
+    
+    public LocalDate getDateRedeemed() {
+        return dateRedeemed;
+    }
+    
+    //----------------------------------------------------------------------
     // Constructors:
     //----------------------------------------------------------------------
     
