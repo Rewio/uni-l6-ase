@@ -55,7 +55,7 @@ public class PurchaseOrder extends Unique implements IPurchaseOrder {
 
     @Override
     public String viewPurchaseOrderDetails() {
-        return "PO: " + purchasee + " purchased " + purchasedRedeemable + " on " + dateRedeemed;
+        return "POID: " + getId() + " - PO: " + purchasee + " purchased " + purchasedRedeemable + " on " + dateRedeemed;
     }
     
 }
