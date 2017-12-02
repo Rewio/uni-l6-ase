@@ -35,7 +35,7 @@ public class PurchaseOrder extends Unique implements IPurchaseOrder {
     // Constructors:
     //----------------------------------------------------------------------
     
-    public PurchaseOrder() {
+    protected PurchaseOrder() {
     }
     
     private PurchaseOrder(Employee aPurchasee, Redeemable aPurchasedRedeeamble, LocalDate aDateRedeemed) {

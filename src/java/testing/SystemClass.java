@@ -17,8 +17,8 @@ public class SystemClass {
         documentToContributeTo.contributeToDocument(contributingEmployee, documentContribution);
     }
     
-    public void viewDocument(Document documentToView, Employee employeeViewing) {
-        documentToView.viewDocument(employeeViewing);
+    public void viewDocument(Document documentToView, Employee viewingEmployee) {
+        documentToView.viewDocument(viewingEmployee);
     }
 
     public Employee createEmployee(String employeeForename, String employeeSurname) {
