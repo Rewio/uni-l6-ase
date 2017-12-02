@@ -48,10 +48,12 @@ public class Employee extends Unique implements IEmployee {
     // Public Methods:
     //----------------------------------------------------------------------
     
+    @Override
     public void rewardBeenz(int rewardedBeenz) {
         beenz.addBeenz(rewardedBeenz);
     }
     
+    @Override
     public int viewAvailableBeenz() {
         return beenz.getNumBeenz();
     }

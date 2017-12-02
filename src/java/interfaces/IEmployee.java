@@ -8,5 +8,6 @@ public interface IEmployee {
     public void rewardBeenz(int rewardedBeenz);
     public int viewAvailableBeenz();
     public PurchaseOrder redeemRedeemable(Redeemable redeemable);
+    public void clearBeenz();
 
 }

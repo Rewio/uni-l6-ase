@@ -1,84 +1,100 @@
 package classes;
 
-import java.time.LocalDate;
+import org.junit.After;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 
 public class BeenzTest {
+    
+    //----------------------------------------------------------------------
+    // Constants:
+    //----------------------------------------------------------------------
 
+    private final String EMPLOYEE_FORENAME = "Andrew";
+    private final String EMPLOYEE_SURNAME  = "Foster";
+    
     //----------------------------------------------------------------------
     // Private Fields:
     //----------------------------------------------------------------------
+
+    private Employee emp;
+    private Beenz beenz;
     
-    private final String employeeForename = "Andrew";
-    private final String employeeSurname = "Foster";
-
-    private final Employee emp1 = new Employee(employeeForename, employeeSurname);
-
-    //----------------------------------------------------------------------
-    // Constructor:
-    //----------------------------------------------------------------------
-    
-    public BeenzTest() {
-    }
-
     //----------------------------------------------------------------------
     // Public Methods:
     //----------------------------------------------------------------------
     
+    @Before
+    public void setUp() {
+        emp   = new Employee(EMPLOYEE_FORENAME, EMPLOYEE_SURNAME);
+        beenz = new Beenz(emp);
+    }
+    
+    @After
+    public void tearDown() {
+       beenz = null;
+       emp   = null;
+    }
+    
+    @Test
+    public void testGetNumBeenz() throws Exception {
+        
+        // starting beenz is a constant in the Beenz class, if that changes, this must also.
+        int startingBeenz = 0;
+        
+        // setup expected and actual results, then test.
+        int expResult = startingBeenz;
+        int actResult = beenz.getNumBeenz();
+        assertEquals(expResult, actResult);
+    }
+
     @Test
     public void testAddBeenz() throws Exception {
 
-        // test data.
-        int startingBeenz = emp1.getBeenz().getNumBeenz();
-        int beenzToAdd = 100;
-
-        // add beenz for testing.
-        emp1.getBeenz().addBeenz(beenzToAdd);
+        // get the starting beenz to be compared later.
+        int startingBeenz = beenz.getNumBeenz();
         
-        // get the new beenz number after adding some.
+        // add some beenz.
+        int beenzToAdd = 500;
+        beenz.addBeenz(beenzToAdd);
+        
+        // setup expected and actual results, then test.
         int expResult = startingBeenz + beenzToAdd;
-        int actResult = emp1.getBeenz().getNumBeenz();
-        
-        // test.
+        int actResult = beenz.getNumBeenz();
         assertEquals(expResult, actResult);
     }
     
     @Test
     public void testSpendBeenz() throws Exception {
         
-        // test data.
-        int beenzToSpend = 100;
+        // add some beenz so we have some to spend.
+        beenz.addBeenz(5000);
         
-        // need to start with some beenz, otherwise have none to spend.
-        emp1.getBeenz().addBeenz(beenzToSpend);
-        int startingBeenz = emp1.getBeenz().getNumBeenz();
-              
-        // spend the beenz.
-        emp1.getBeenz().spendBeenz(beenzToSpend);
+        // get how many beenz we have after adding some.
+        int numBeenz = beenz.getNumBeenz();
         
-        // setup results.
-        int expResult = startingBeenz - beenzToSpend;
-        int actResult = emp1.getBeenz().getNumBeenz();
+        // spend some beenz.
+        int beenzToSpend = 500;
+        beenz.spendBeenz(beenzToSpend);
         
-        // test.
+        // setup expected and actual results, then test.
+        int expResult = numBeenz - beenzToSpend;
+        int actResult = beenz.getNumBeenz();
         assertEquals(expResult, actResult);
     }
     
     @Test
     public void testClearBeenz() throws Exception {
+      
+        // add some beenz to be cleared, then attempt to clear them.
+        beenz.addBeenz(500000);
+        beenz.clearBeenz();
         
-        // add some beenz to remove.
-        emp1.getBeenz().addBeenz(100);
-        emp1.clearBeenz();
-        
-        // setup results.
+        // setup expected and actual results, then test.
         int expResult = 0;
-        int actResult = emp1.getBeenz().getNumBeenz();
-        
-        // test.
+        int actResult = beenz.getNumBeenz();
         assertEquals(expResult, actResult);
-        
     }
 
 }

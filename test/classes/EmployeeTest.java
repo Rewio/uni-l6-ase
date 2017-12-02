@@ -1,19 +1,24 @@
 package classes;
 
-import java.time.LocalDate;
+import org.junit.After;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 
 public class EmployeeTest {
 
     //----------------------------------------------------------------------
+    // Constants:
+    //----------------------------------------------------------------------
+
+    private final String EMPLOYEE_FORENAME = "Andrew";
+    private final String EMPLOYEE_SURNAME  = "Foster";
+    
+    //----------------------------------------------------------------------
     // Private Fields:
     //----------------------------------------------------------------------
-    
-    private final String employeeForename = "Andrew";
-    private final String employeeSurname = "Foster";
 
-    private final Employee emp1 = new Employee(employeeForename, employeeSurname);
+    private Employee emp;
 
     //----------------------------------------------------------------------
     // Constructor:
@@ -26,51 +31,58 @@ public class EmployeeTest {
     // Public Methods:
     //----------------------------------------------------------------------
     
+    @Before
+    public void setUp() {
+        emp = new Employee(EMPLOYEE_FORENAME, EMPLOYEE_SURNAME);
+    }
+    
+    @After
+    public void tearDown() {
+        emp = null;
+    }
+    
     @Test
     public void testRewardBeenz() throws Exception {
         
-        // test data.
-        int startingBeenz = emp1.getBeenz().getNumBeenz();
-        int beenzToAdd = 100;
+        // get the starting beenz to be compared later.
+        int startingBeenz = emp.getBeenz().getNumBeenz();
         
         // add some beenz.
-        emp1.rewardBeenz(beenzToAdd);
+        int beenzToAdd = 100;
+        emp.rewardBeenz(beenzToAdd);
         
-        // setup results.
+        // setup expected and actual results, then test.
         int expResult = startingBeenz + beenzToAdd;
-        int actResult = emp1.getBeenz().getNumBeenz();
-        
-        // test.
+        int actResult = emp.getBeenz().getNumBeenz();
         assertEquals(expResult, actResult);
     }
     
     @Test
     public void testViewAvailableBeenz() throws Exception {
 
-        // test data.
-        emp1.clearBeenz();
-        emp1.getBeenz().addBeenz(100);
+        // clear the employees beenz so they have none.
+        emp.clearBeenz();
         
-        // setup results.
-        int expResult = 100;
-        int actResult = emp1.viewAvailableBeenz();
+        // add some beenz.
+        int beenzToAdd = 100;
+        emp.getBeenz().addBeenz(beenzToAdd);
         
-        // test.
+        // setup expected and actual results, then test.
+        int expResult = beenzToAdd;
+        int actResult = emp.viewAvailableBeenz();
         assertEquals(expResult, actResult);
     }
     
     @Test
     public void testClearBeenz() throws Exception {
         
-        // test data.
-        emp1.rewardBeenz(10000);
-        emp1.clearBeenz();
+        // reward the employee with beenz, then attempt to clear them.
+        emp.rewardBeenz(10000);
+        emp.clearBeenz();
         
-        // setup results.
+        // setup expected and actual results, then test.
         int expResult = 0;
-        int actResult = emp1.viewAvailableBeenz();
-        
-        // test.
+        int actResult = emp.viewAvailableBeenz();
         assertEquals(expResult, actResult);
     }
 }

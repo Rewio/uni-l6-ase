@@ -1,11 +1,10 @@
 package classes;
 
-import classes.Document;
-import classes.Employee;
 import java.time.LocalDate;
-import java.util.Random;
+import org.junit.After;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 
 public class DocumentTest {
 
@@ -14,18 +13,18 @@ public class DocumentTest {
     //----------------------------------------------------------------------
     
     private final int STARTING_CONTRIBUTORS = 0;
+    
+    private final String EMPLOYEE_FORENAME = "Andrew";
+    private final String EMPLOYEE_SURNAME  = "Foster";
+    private final String DOCUMENT_TITLE    = "Test Title";
+    private final String DOCUMENT_CONTENT  = "Test Content";
 
     //----------------------------------------------------------------------
     // Private Fields:
     //----------------------------------------------------------------------
-    
-    private final String employeeForename = "Andrew";
-    private final String employeeSurname = "Foster";
-    private final String documentTitle = "Test Title";
-    private final String documentContent = "Test Content";
-
-    private final Employee emp1 = new Employee(employeeForename, employeeSurname);
-    private final Document doc1 = Document.createDocument(emp1, documentTitle, documentContent);
+ 
+    private Employee emp;
+    private Document doc;
 
     //----------------------------------------------------------------------
     // Constructor:
@@ -38,53 +37,114 @@ public class DocumentTest {
     // Public Methods:
     //----------------------------------------------------------------------
     
+    @Before
+    public void setUp() {
+        emp = new Employee(EMPLOYEE_FORENAME, EMPLOYEE_SURNAME);
+        doc = Document.createDocument(emp, DOCUMENT_TITLE, DOCUMENT_CONTENT);
+    }
+    
+    @After
+    public void tearDown() {
+        doc = null;
+        emp = null;
+    }
+    
+    @Test
+    public void testGetAuthorName() throws Exception {
+        
+        // setup expected and actual results, then test.
+        String expResult = EMPLOYEE_FORENAME + " " + EMPLOYEE_SURNAME;
+        String actResult = doc.getAuthor().getName();
+        assertEquals(expResult, actResult);
+    }
+    
+    @Test
+    public void testGetContent() throws Exception {
+        
+        // setup expected and actual results, then test.
+        String expResult = DOCUMENT_CONTENT;
+        String actResult = doc.getContent();
+        assertEquals(expResult, actResult);
+    }
+    
+    @Test
+    public void testGetDateCreated() throws Exception {
+        
+        // setup expected and actual results, then test.
+        String expResult = LocalDate.now().toString();
+        String actResult = doc.getDateCreated();
+        assertEquals(expResult, actResult);
+    }
+    
+    @Test
+    public void testGetNumContributors() throws Exception {
+        
+        // setup expected and actual results, then test.
+        int expResult = STARTING_CONTRIBUTORS;
+        int actResult = doc.getNumContributors();
+        assertEquals(expResult, actResult);
+        
+        // contribute to document and test again.
+        doc.contributeToDocument(emp, "contribution");
+        expResult = STARTING_CONTRIBUTORS + 1;
+        actResult = doc.getNumContributors();
+        assertEquals(expResult, actResult);
+    }
+    
+    @Test
+    public void testGetTitle() throws Exception {
+        
+        // setup expected and actual results, then test.
+        String expResult = DOCUMENT_TITLE;
+        String actResult = doc.getTitle();
+        assertEquals(expResult, actResult);
+    }
+    
     @Test
     public void testCreateDocument() throws Exception {
 
-        // data to be tested.
-        Document result = Document.createDocument(emp1, documentTitle, documentContent);
-
-        // test.
-        assertEquals(documentTitle, result.getTitle());
-        assertEquals(emp1.getName(), result.getAuthor().getName());
-        assertEquals(LocalDate.now().toString(), result.getDateCreated());
-        assertEquals(documentContent, result.getContent());
-        assertEquals(STARTING_CONTRIBUTORS, result.getNumContributors());
+        // create a document with identical information as the one in setUp()
+        Document testDoc = Document.createDocument(emp, DOCUMENT_TITLE, DOCUMENT_CONTENT);
+        
+        // test information. They logically wont be equal due to their unique ID, so this is a workaround.
+        assertEquals(doc.getAuthor().getName(), testDoc.getAuthor().getName());
+        assertEquals(doc.getContent(), testDoc.getContent());
+        assertEquals(doc.getDateCreated(), testDoc.getDateCreated());
+        assertEquals(doc.getNumContributors(), doc.getNumContributors());
+        assertEquals(doc.getTitle(), testDoc.getTitle());
     }
 
     @Test
     public void testContributeToDocument() throws Exception {
 
-        // data to be tested.
-        int numContributors = doc1.getNumContributors();
-        int newContributors = numContributors + 1;
-
-        // add a contributor.
-        doc1.contributeToDocument(emp1, "Test Contribution");
-
-        // test.
-        assertEquals(newContributors, doc1.getNumContributors());
+        // get the current document content.
+        String currentContent = doc.getContent();
+        
+        // contribute to the document.
+        String contribution = "Contribution";
+        doc.contributeToDocument(emp, contribution);
+        
+        // setup expected and actual results, then test.
+        String expResult = currentContent + (" " + contribution + "(" + emp.getInitials() + ")");
+        String actResult = doc.getContent();
+        assertEquals(expResult, actResult);
     }
 
     @Test
     public void testViewDocument() throws Exception {
 
-        // data to be tested.
-        String expResult = documentContent;
-        String result    = doc1.getContent();
-
-        // test.
-        assertEquals(expResult, result);
+        // setup expected and actual results, then test.
+        String expResult = DOCUMENT_CONTENT;
+        String actResult = doc.getContent();
+        assertEquals(expResult, actResult);
     }
 
     @Test
     public void testViewContributors() throws Exception {
 
-        // data to be tested.
+        // setup expected and actual results, then test.
         int expResult = STARTING_CONTRIBUTORS;
-        int actResult = doc1.getNumContributors();
-
-        // test.
+        int actResult = doc.getNumContributors();
         assertEquals(expResult, actResult);
     }
     
@@ -92,14 +152,14 @@ public class DocumentTest {
     public void testRewardBeenz() throws Exception {
         
         // data to be tested.
-        int startingBeenz = emp1.getBeenz().getNumBeenz();
+        int startingBeenz = emp.getBeenz().getNumBeenz();
         
-        // Create a new document 100 times, statistically should be rewarded for this.
-        for (int i = 0; i < 100; i++) {
-           Document newDoc = Document.createDocument(emp1, "Document", "Content");
+        // Create a new document 1000 times, statistically should be rewarded for this.
+        for (int i = 0; i < 1000; i++) {
+           Document newDoc = Document.createDocument(emp, "Document", "Content");
         }
         
-        int currentBeenz = emp1.getBeenz().getNumBeenz();
+        int currentBeenz = emp.getBeenz().getNumBeenz();
         
         // test.
         assertNotEquals(startingBeenz, currentBeenz);

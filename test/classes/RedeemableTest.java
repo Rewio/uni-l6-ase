@@ -1,23 +1,26 @@
 package classes;
 
-import classes.Document;
-import classes.Employee;
 import java.time.LocalDate;
-import java.util.Random;
+import org.junit.After;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 
 public class RedeemableTest {
+    
+    //----------------------------------------------------------------------
+    // Constants:
+    //----------------------------------------------------------------------
 
+    private final String EMPLOYEE_FORENAME = "Andrew";
+    private final String EMPLOYEE_SURNAME  = "Foster";
+    
     //----------------------------------------------------------------------
     // Private Fields:
     //----------------------------------------------------------------------
-    
-    private final String employeeForename = "Andrew";
-    private final String employeeSurname = "Foster";
 
-    private final Employee emp1 = new Employee(employeeForename, employeeSurname);
-    private final Vacation red1 = new Vacation(Vacation.Destinations.London, LocalDate.now(), LocalDate.now().plusWeeks(1), 500);
+    private Employee emp;
+    private Vacation red;
 
     //----------------------------------------------------------------------
     // Constructor:
@@ -30,29 +33,41 @@ public class RedeemableTest {
     // Public Methods:
     //----------------------------------------------------------------------
     
+    @Before
+    public void setUp() {
+        emp = new Employee(EMPLOYEE_FORENAME, EMPLOYEE_SURNAME);
+        red = new Vacation(Vacation.Destinations.PaidLeave, LocalDate.now(), LocalDate.now().plusWeeks(1), 500);
+    }
+    
+    @After
+    public void tearDown() {
+        emp = null;
+        red = null;
+    }
+    
     @Test
     public void testRedeem() throws Exception {
 
-        // ensure the employee has no beenz to begin with.
-        emp1.clearBeenz();
+        // first we test when the employee has no beenz.
         
-        // create a null PO and attempt to redeem without enough beenz, resulting in a null PO.
+        // make sure the employee has no beenz.
+        emp.clearBeenz();
+        
+        // setup expected and actual results, then test.
         PurchaseOrder expResult = null;
-        PurchaseOrder actResult = emp1.redeemRedeemable(red1);
-        
-        // test.
+        PurchaseOrder actResult = emp.redeemRedeemable(red);
         assertEquals(expResult, actResult);
         
+        // now we test when the employee certainly has enough beenz.
+        
         // give the employee enough beenz to purchase the redeemable.
-        emp1.clearBeenz();
-        emp1.rewardBeenz(500);
+        emp.rewardBeenz(100000);
         
-        // setup next test.
+        // setup expected and actual results, then test.
         PurchaseOrder po = new PurchaseOrder();
-        expResult = po.createPurchaseOrder(emp1, red1, LocalDate.now());
-        actResult = emp1.redeemRedeemable(red1);
+        expResult = po.createPurchaseOrder(emp, red, LocalDate.now());
+        actResult = emp.redeemRedeemable(red);
         
-        // test the test where everything should succeed, and not have a null PO.
         assertEquals(expResult.getEmployee(), actResult.getEmployee());
         assertEquals(expResult.getPurchasedRedeemable(), actResult.getPurchasedRedeemable());
         assertEquals(expResult.getDateRedeemed(), actResult.getDateRedeemed());
