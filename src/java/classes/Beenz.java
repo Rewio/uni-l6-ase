@@ -78,6 +78,6 @@ public class Beenz extends Unique {
     //----------------------------------------------------------------------
     
     private void incrementExpiryDate() {
-        expiryDate = expiryDate.plusYears(EXPIRY_DATE_INCREMENT);
+        expiryDate = LocalDate.now().plusYears(EXPIRY_DATE_INCREMENT);
     }
 }
